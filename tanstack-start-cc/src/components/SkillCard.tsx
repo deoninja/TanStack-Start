@@ -19,8 +19,15 @@ const SkillCard = ({ name }: SkillCardProps) => {
             {likes} {likes === 1 ? 'like' : 'likes'}
           </p>
         </div>
-        <button onClick={() => setLiked((current) => !current)} type='button'>
-          <Heart fill={liked ? 'currentColor' : 'none'} size={18} />
+        <button
+          className='inline-flex size-11 items-center justify-center  rounded-full border border-(--line) bg-(--surface-strong) text-(--sea-ink) shadow-md hover:cursor-pointer'
+          onClick={() => setLiked((current) => !current)}
+          type='button'
+        >
+          <Heart
+            className={liked ? 'fill-current text-(--lagoon-deep)' : ''}
+            size={18}
+          />
         </button>
       </div>
     </article>
