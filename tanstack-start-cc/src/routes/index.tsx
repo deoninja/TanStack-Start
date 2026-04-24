@@ -1,5 +1,5 @@
 import SkillCard from '#/components/SkillCard';
-import { createFileRoute } from '@tanstack/react-router';
+import { createFileRoute, notFound, useRouter } from '@tanstack/react-router';
 
 const POKE_API_URL = 'https://pokeapi.co/api/v2/pokemon';
 
@@ -13,11 +13,32 @@ export const Route = createFileRoute('/')({ component: App,
     // return { skills };
     // console.log('Loading data for "/" route...');
     const response = await fetch(POKE_API_URL);
+    // throw new Error('Failed to load Pokemon data'); // Simulate an error for testing
+    throw notFound(); // Simulate a 404 error for testing
     const data = await response.json();
     console.log('Loading data for "/" route...', data);
     return data;
-  }
- });
+  },
+  errorComponent: ({ error }) => {
+    const router = useRouter();
+    return (
+      <div className='p-14 text-center text-shadow-amber-50'>
+        <h2 className='text-2xl font-bold'>Error loading Pokemon</h2>
+        <p>Oops! Something went wrong:</p>
+        <p>{error.message}</p>
+        <button onClick={() => router.invalidate()}>Try Again</button>
+      </div>
+    );
+  },
+  notFoundComponent: () => {
+    return (
+      <div className='p-14 text-center text-shadow-amber-50'>
+        <h2 className='text-2xl font-bold'>Pokemon Not Found</h2>
+        <p>Sorry, we couldn't find the Pokemon you were looking for.</p>
+      </div>
+    );
+  },
+});
 
 function App() {
   const data = Route.useLoaderData();
