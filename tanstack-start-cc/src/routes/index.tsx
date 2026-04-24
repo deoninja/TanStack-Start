@@ -14,9 +14,12 @@ export const Route = createFileRoute('/')({ component: App,
     // console.log('Loading data for "/" route...');
     const response = await fetch(POKE_API_URL);
     // throw new Error('Failed to load Pokemon data'); // Simulate an error for testing
-    throw notFound(); // Simulate a 404 error for testing
     const data = await response.json();
-    console.log('Loading data for "/" route...', data);
+
+    if(!data.results || data.results.length === 0){
+      throw notFound;
+    }
+    
     return data;
   },
   errorComponent: ({ error }) => {
