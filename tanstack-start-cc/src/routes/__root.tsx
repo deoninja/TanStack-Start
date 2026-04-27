@@ -17,7 +17,11 @@ export const Route = createRootRoute({
         content: 'width=device-width, initial-scale=1',
       },
       {
-        title: 'TanStack Start Starter',
+        title: 'Agent Skills | The Developer Platform',
+      },
+      {
+        name: 'description',
+        content: 'Agent Skills is a platform for developers to enhance their skills and knowledge.',
       },
     ],
     links: [
